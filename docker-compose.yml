@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  sms-analysis:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./sms_analysis.db:/app/sms_analysis.db
+    environment:
+      - DATABASE_URL=sqlite:///./sms_analysis.db
+    restart: unless-stopped
+
+  # Optional: Add a database service for production
+  # postgres:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_DB: sms_analysis
+  #     POSTGRES_USER: sms_user
+  #     POSTGRES_PASSWORD: sms_password
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+
+# volumes:
+#   postgres_data:
